@@ -1,3 +1,4 @@
+export { UsuarioService } from './usuario/usuario.service';
 
 
 export { SettingsService } from './settings/settings.service';

@@ -19,8 +19,6 @@ export class IncrementadorComponent implements OnInit {
   }
 
   ngOnInit() {
-/*     console.log('Leyenda', this.leyenda );
- */ console.log('progreso', this.progreso );
 
   }
 

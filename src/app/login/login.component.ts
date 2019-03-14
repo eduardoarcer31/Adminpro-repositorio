@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
+import { UsuarioService } from '../services/service.index';
+import { Usuario } from '../models/usuario.model';
+import Swal from 'sweetalert2';
 
 declare function init_plugins();
 @Component({
@@ -8,15 +12,23 @@ declare function init_plugins();
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  recuerdame: boolean = false;
 
-  constructor( public router: Router) { }
+  // tslint:disable-next-line:variable-name
+  constructor( public router: Router, public _usuarioService: UsuarioService) { }
 
   ngOnInit() {
     init_plugins();
   }
 
-  ingresar() {
-    this.router.navigate([ '/dashboard' ]);
+  ingresar(forma: NgForm) {
+
+    if (forma.invalid) {
+      return;
+    }
+    const usuario = new Usuario(null, forma.value.email, forma.value.password);
+    this._usuarioService.login( usuario, forma.value.recuerdame ).subscribe( correcto => this.router.navigate(['/dashboard']));
+    // this.router.navigate([ '/dashboard' ]);
   }
 
 }
